@@ -130,6 +130,7 @@
             line-height: 1.2;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
@@ -220,30 +221,7 @@
             line-height: 1.6;
         }
         
-        .stats {
-            padding: 5rem 5%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            text-align: center;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .stat-item h3 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
+       
         footer {
             background: var(--dark);
             color: white;
@@ -277,15 +255,9 @@
                 justify-content: flex-start;
             }
             
-            .section-title {
-                font-size: 2.5rem;
-            }
-            
-            .stat-item h3 {
-                font-size: 3rem;
-            }
-        }
-        
+    
+        } /* Closing the @media (min-width: 768px) block */
+    
         @media (max-width: 600px) {
             .navbar {
                 flex-direction: column;
@@ -329,10 +301,10 @@
         <div class="nav-links">
             <a href="#">Home</a>
             <a href="#">Dashboard</a>
-            <a href="#">About</a>
+            <a href="about.html">About</a>
         </div>
         <div class="auth-buttons">
-            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="admin_login.html" class="btn btn-outline">Login</a>
             <a href="registration.html" class="btn btn-primary">Register</a>
         </div>
     </nav>
@@ -347,7 +319,7 @@
             </div>
         </div>
         <div class="hero-image">
-            <img src="Picture-1.png" alt="EmpowerHer" class="hero-img">
+            <img src="images/Picture-1.png" alt="EmpowerHer" class="hero-img">
         </div>
     </section>
 
@@ -378,30 +350,9 @@
         </div>
     </section>
 
-    <section class="stats">
-        <h2 class="section-title" style="color: white;">Our Impact</h2>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h3>5,000+</h3>
-                <p>Girls Empowered</p>
-            </div>
-            <div class="stat-item">
-                <h3>200+</h3>
-                <p>Villages Reached</p>
-            </div>
-            <div class="stat-item">
-                <h3>85%</h3>
-                <p>Success Rate</p>
-            </div>
-            <div class="stat-item">
-                <h3>50+</h3>
-                <p>Partners</p>
-            </div>
-        </div>
-    </section>
 
     <footer>
-        © 2023 EmpowerHer. All rights reserved. | Empowering rural girls through education and opportunity
+        © 2025 EmpowerHer. All rights reserved. | Empowering rural girls through education and opportunity
     </footer>
 </body>
 </html>

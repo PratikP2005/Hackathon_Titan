@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Rural Girls' Digital Empowerment Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff69b4;
+      --secondary: #FF6584;
+      --dark: #2F2E41;
+      --light: #F8F9FA;
+      --success: #28A745;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F0F2F5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .register-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+      padding: 2rem;
+      margin: 1rem;
+      position: relative;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .progress-steps::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: #ddd;
+      z-index: 1;
+    }
+    .step {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+    }
+    .step.active {
+      background-color: var(--primary);
+    }
+    .step.completed {
+      background-color: var(--success);
+    }
+    .hidden { display: none; }
+
+    /* === STEP CONTENT STYLES === */
+    /* Removed empty ruleset as it was unnecessary */
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+    }
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1rem;
+    }
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 0.8rem;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    .btn:hover { background-color: #db3eb1; }
+
+    /* Google Sign‑In style */
+    .btn.google {
+      background-color: #4285F4;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .login-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* OTP section */
+    .auth-methods {
+      margin-bottom: 1.5rem;
+    }
+    .auth-methods label {
+      margin-right: 1rem;
+      font-weight: 500;
+    }
+    .otp-section {
+      margin-top: 1rem;
+    }
+
+    /* Final step */
+    .complete-message {
+      text-align: center;
+    }
+    .complete-message h2 {
+      color: var(--success);
+      margin-bottom: 1rem;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 600px) {
+      .form-row { flex-direction: column; }
+      .register-container { padding: 1rem; margin: 0.5rem; }
+      .logo { font-size: 1.5rem; }
+      .btn { font-size: 0.9rem; padding: 0.6rem; }
+      .progress-steps { margin-bottom: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="logo">RuralGirlsEmpower</div>
+
+    <div class="progress-steps">
+      <div id="p1" class="step active">1</div>
+      <div id="p2" class="step">2</div>
+      <div id="p3" class="step">3</div>
+    </div>
+
+    <!-- === STEP 1: Original Registration Form === -->
+    <div id="step1" class="step-content">
+      <form id="form-step1">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="state">State</label>
+            <select id="state" class="form-control" required>
+              <option value="">Select your state</option>
+              <option value="rajasthan">Rajasthan</option>
+              <option value="bihar">Bihar</option>
+              <option value="up">Uttar Pradesh</option>
+              <option value="mp">Madhya Pradesh</option>
+              <option value="jharkhand">Jharkhand</option>
+              <option value="odisha">Odisha</option>
+              <option value="wb">West Bengal</option>
+              <option value="mh">Maharashtra</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="district">District</label>
+            <select id="district" class="form-control" required>
+              <option value="">Select your district</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="village">Village/Town</label>
+          <input type="text" id="village" class="form-control" placeholder="Enter your village or town" required>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" required> I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>
+          </label>
+        </div>
+        <button type="submit" class="btn">Continue</button>
+        <div class="login-footer">
+          <p>Already have an account? <a href="admin_login.html">Sign in</a></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- === STEP 2: Authentication === -->
+    <div id="step2" class="step-content hidden">
+      <div class="register-header">
+        <h1>Verify Your Account</h1>
+        <p>Choose a method to verify:</p>
+      </div>
+      <div class="auth-methods">
+        <label><input type="radio" name="authMethod" value="phone" checked> Phone OTP</label>
+        <label><input type="radio" name="authMethod" value="email"> Email OTP</label>
+        <label><input type="radio" name="authMethod" value="google"> Google Sign-In</label>
+      </div>
+      <div id="otpSections">
+        <!-- Phone OTP -->
+        <div id="otp-phone" class="otp-section">
+          <p>We’ll send an OTP to <strong><span id="displayPhone"></span></strong></p>
+          <input type="text" id="phone-otp" class="form-control" placeholder="Enter OTP (123456)" />
+          <button id="verifyPhoneOtp" class="btn">Verify OTP</button>
+        </div>
+        <!-- Email OTP -->
+        <div id="otp-email" class="otp-section hidden">
+          <p>We’ll send an OTP to <strong><span id="displayEmail"></span></strong></p>
+          <input type="text" id="email-otp" class="form-control" placeholder="Enter OTP (654321)" />
+          <button id="verifyEmailOtp" class="btn">Verify OTP</button>
+        </div>
+        <!-- Google Sign-In -->
+        <div id="opt-google" class="otp-section hidden">
+          <button id="googleSignIn" class="btn google">Sign in with Google</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- === STEP 3: Complete === -->
+    <div id="step3" class="step-content hidden">
+      <div class="complete-message">
+        <h2>🎉 Registration Complete! 🎉</h2>
+        <p>Welcome, <strong><span id="userNameFinal"></span></strong>. Your account has been created.</p>
+        <a href="admin_login.html" class="btn">Go to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Populate districts (as before)
+    document.getElementById('state').addEventListener('change', function() {
+      const state = this.value;
+      const districtSelect = document.getElementById('district');
+      districtSelect.innerHTML = '<option value="">Select your district</option>';
+      const districts = {
+        rajasthan: ['Ajmer','Alwar','Bikaner','Jaipur','Jodhpur','Udaipur'],
+        bihar: ['Patna','Gaya','Bhagalpur','Muzaffarpur','Purnia','Darbhanga','Sasaram'],
+        up: ['Lucknow','Kanpur','Agra','Varanasi','Meerut','Allahabad','Bareilly'],
+        mp: ['Bhopal','Indore','Jabalpur','Gwalior','Ujjain','Sagar','Dewas'],
+        jharkhand: ['Ranchi','Jamshedpur','Dhanbad','Bokaro','Hazaribagh'],
+        odisha: ['Bhubaneswar','Cuttack','Rourkela','Puri','Sambalpur'],
+        wb: ['Kolkata','Howrah','Darjeeling','Siliguri','Asansol','Durgapur'],
+        mh: ['Nagpur','Aurangabad','Satara','Kolhapur','Thane','Palghar','Raigad']
+      };
+      if (!state) return;
+      districts[state].forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.toLowerCase();
+        opt.textContent = d;
+        districtSelect.appendChild(opt);
+      });
+    });
+
+    // Step controls
+    const showStep = n => {
+      [1,2,3].forEach(i => {
+        document.getElementById('step'+i).classList.toggle('hidden', i!==n);
+        const p = document.getElementById('p'+i);
+        p.classList.toggle('active', i===n);
+        p.classList.toggle('completed', i< n);
+      });
+    };
+
+    // Step 1 → Step 2
+    document.getElementById('form-step1').addEventListener('submit', e => {
+      e.preventDefault();
+      // carry over display values
+      document.getElementById('displayPhone').textContent = document.getElementById('phone').value;
+      document.getElementById('displayEmail').textContent = document.getElementById('email').value;
+      document.getElementById('userNameFinal').textContent = 
+        document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+      showStep(2);
+    });
+
+    // Auth‑method toggle
+    document.querySelectorAll('input[name=authMethod]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        ['phone','email','google'].forEach(m => {
+          document.getElementById('otp-'+m).classList.toggle('hidden', radio.value!==m);
+        });
+      });
+    });
+
+    // Verify phone OTP
+    document.getElementById('verifyPhoneOtp').addEventListener('click', () => {
+      const val = document.getElementById('phone-otp').value.trim();
+      if (val === '123456') showStep(3);
+      else alert('Wrong phone OTP!');
+    });
+    // Verify email OTP
+    document.getElementById('verifyEmailOtp').addEventListener('click', () => {
+      const val = document.getElementById('email-otp').value.trim();
+      if (val === '654321') showStep(3);
+      else alert('Wrong email OTP!');
+    });
+    // Google Sign‑In simulation
+    document.getElementById('googleSignIn').addEventListener('click', () => {
+      // simulate OAuth
+      setTimeout(() => showStep(3), 500);
+    });
+
+    // init
+    showStep(1);
+  </script>
+</body>
+</html>
