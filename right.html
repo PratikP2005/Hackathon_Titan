@@ -27,6 +27,20 @@
             min-height: 100vh;
         }
         
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
         .logo {
             display: flex;
             align-items: center;
@@ -301,7 +315,7 @@
         <div class="nav-links">
             <a href="#">Home</a>
             <a href="#">Dashboard</a>
-            <a href="about.html">About</a>
+            <a href="#">About</a>
         </div>
         <div class="auth-buttons">
             <a href="admin_login.html" class="btn btn-outline">Login</a>
