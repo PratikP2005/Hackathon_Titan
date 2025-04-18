@@ -21,6 +21,8 @@
           <span id="password-error" class="error-message"></span>
         
           <a href="#" class="forgot-password">Forget Password?</a>
+          <div class="g-recaptcha" data-sitekey="6LeYKh0rAAAAAGFqNdRYaQYoRZtvRlXroI6VBKyL"></div>
+          <span id="recaptcha-error" class="error-message"></span>
           <button type="submit" class="login-button">Login</button>
         </form>
         
@@ -35,6 +37,9 @@
   </div>
 
   <!-- External JS file -->
-  <script src="admin_login.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <script type="module" src="firebase-init.js"></script>
+  <script type="module" src="admin_login.js"></script>
 </body>
 </html>
