@@ -160,6 +160,11 @@
       color: var(--success);
       margin-bottom: 1rem;
     }
+    .success-message {
+      color: var(--success);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
     @media (max-width: 600px) {
       .form-row { flex-direction: column; }
       .register-container { padding: 1rem; margin: 0.5rem; }
@@ -171,7 +176,7 @@
 </head>
 <body>
   <div class="register-container">
-    <div class="logo">RuralGirlsEmpower</div>
+    <div class="logo">EmpowerHer</div>
     <div class="progress-steps">
       <div id="p1" class="step active">1</div>
       <div id="p2" class="step">2</div>
@@ -254,28 +259,25 @@
           <label><input type="checkbox" id="terms" required> I agree to the Terms & Privacy</label>
           <div id="terms-error" class="error-message"></div>
         </div>
-        <!-- Inside the form, before the "Continue" button, add the role selection -->
-<div class="form-group">
-  <label for="role">Select Role</label>
-  <select id="role" class="form-control" required>
-    <option value="">Select Role</option>
-    <option value="admin">Admin</option>
-    <option value="mentor">Mentor</option>
-    <option value="user">User</option>
-  </select>
-  <div id="role-error" class="error-message"></div>
-</div>
-
+        <div class="form-group">
+          <label for="role">Select Role</label>
+          <select id="role" class="form-control" required>
+            <option value="">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="mentor">Mentor</option>
+            <option value="user">User</option>
+          </select>
+          <div id="role-error" class="error-message"></div>
+        </div>
         <button type="submit" class="btn">Continue</button>
-        <p>Already have an account? <a href="admin_login.html" class="sign-up">Login</a></p>
+        <p>Already have an account? <a href="admin_login.html" class="sign-up" style="color: #db3eb1;">Login</a></p>
       </form>
     </div>
 
-<!-- STEP 2: Email Verification Info -->
-<div id="step2" class="step-content hidden"></div>
-   
+    <!-- STEP 2 -->
+    <div id="step2" class="step-content hidden"></div>
 
-    <!-- STEP 3: Complete -->
+    <!-- STEP 3 -->
     <div id="step3" class="step-content hidden">
       <div class="complete-message">
         <h2>🎉 Registration Complete! 🎉</h2>
@@ -286,81 +288,32 @@
   </div>
 
   <script>
-    // show/hide steps
     function showStep(n) {
-      [1,2,3].forEach(i => {
-        document.getElementById('step'+i).classList.toggle('hidden', i !== n);
-        const p = document.getElementById('p'+i);
+      [1, 2, 3].forEach(i => {
+        document.getElementById('step' + i).classList.toggle('hidden', i !== n);
+        const p = document.getElementById('p' + i);
         p.classList.toggle('active', i === n);
         p.classList.toggle('completed', i < n);
       });
     }
 
-    // Step 1 validation
-    document.getElementById('form-step1').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-
-      const vals = {
-        firstName: document.getElementById('firstName').value.trim(),
-        lastName:  document.getElementById('lastName').value.trim(),
-        email:     document.getElementById('email').value.trim(),
-        phone:     document.getElementById('phone').value.trim(),
-        password:  document.getElementById('password').value,
-        confirm:   document.getElementById('confirmPassword').value,
-        state:     document.getElementById('state').value,
-        district:  document.getElementById('district').value,
-        village:   document.getElementById('village').value.trim(),
-        terms:     document.getElementById('terms').checked
-      };
-      let valid = true;
-      if (!vals.firstName)   { document.getElementById('firstName-error').textContent = 'Required'; valid = false; }
-      if (!vals.lastName)    { document.getElementById('lastName-error').textContent = 'Required'; valid = false; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vals.email)) {
-        document.getElementById('email-error').textContent = 'Invalid email'; valid = false;
-      }
-      if (!/^[0-9]{10,15}$/.test(vals.phone)) {
-        document.getElementById('phone-error').textContent = 'Invalid phone'; valid = false;
-      }
-      if (vals.password.length < 8) {
-        document.getElementById('password-error').textContent = 'Min 8 chars'; valid = false;
-      }
-      if (vals.password !== vals.confirm) {
-        document.getElementById('confirmPassword-error').textContent = 'Must match'; valid = false;
-      }
-      if (!vals.state)      { document.getElementById('state-error').textContent = 'Select state'; valid = false; }
-      if (!vals.district)   { document.getElementById('district-error').textContent = 'Select district'; valid = false; }
-      if (!vals.village)    { document.getElementById('village-error').textContent = 'Required'; valid = false; }
-      if (!vals.terms)      { document.getElementById('terms-error').textContent = 'Accept terms'; valid = false; }
-
-      if (!valid) return;
-
-      document.getElementById('displayEmail').textContent = vals.email;
-      document.getElementById('userNameFinal').textContent = vals.firstName + ' ' + vals.lastName;
-      showStep(2);
-    });
-
     // Populate districts
     document.getElementById('state').addEventListener('change', function() {
       const map = {
-        rajasthan: ['Ajmer','Alwar','Bikaner','Jaipur','Jodhpur','Udaipur'],
-        bihar:     ['Patna','Gaya','Bhagalpur','Muzaffarpur','Purnia','Darbhanga','Sasaram'],
-        up:        ['Lucknow','Kanpur','Agra','Varanasi','Meerut','Allahabad','Bareilly'],
-        mp:        ['Bhopal','Indore','Jabalpur','Gwalior','Ujjain','Sagar','Dewas'],
-        jharkhand: ['Ranchi','Jamshedpur','Dhanbad','Bokaro','Hazaribagh'],
-        odisha:    ['Bhubaneswar','Cuttack','Rourkela','Puri','Sambalpur'],
-        wb:        ['Kolkata','Howrah','Darjeeling','Siliguri','Asansol','Durgapur'],
-        mh:        ['Nagpur','Aurangabad','Satara','Kolhapur','Thane','Palghar','Raigad']
+        rajasthan: ['Ajmer', 'Alwar', 'Bikaner', 'Jaipur', 'Jodhpur', 'Udaipur'],
+        bihar: ['Patna', 'Gaya', 'Bhagalpur', 'Muzaffarpur', 'Purnia', 'Darbhanga', 'Sasaram'],
+        up: ['Lucknow', 'Kanpur', 'Agra', 'Varanasi', 'Meerut', 'Allahabad', 'Bareilly'],
+        mp: ['Bhopal', 'Indore', 'Jabalpur', 'Gwalior', 'Ujjain', 'Sagar', 'Dewas'],
+        jharkhand: ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Bokaro', 'Hazaribagh'],
+        odisha: ['Bhubaneswar', 'Cuttack', 'Rourkela', 'Puri', 'Sambalpur'],
+        wb: ['Kolkata', 'Howrah', 'Darjeeling', 'Siliguri', 'Asansol', 'Durgapur'],
+        mh: ['Nagpur', 'Aurangabad', 'Satara', 'Kolhapur', 'Thane', 'Palghar', 'Raigad']
       };
-    
+
       const state = this.value;
-      console.log(state);
       const sel = document.getElementById('district');
-      
-      // Clear existing options
       sel.innerHTML = '<option value="">Select your district</option>';
-    
-      // If a valid state is selected, populate the district dropdown
+
       if (state && map[state]) {
         map[state].forEach(district => {
           const option = document.createElement('option');
@@ -368,11 +321,8 @@
           option.textContent = district;
           sel.appendChild(option);
         });
-      }else{
-        console.log('Invalid state selected or no districts available for this' +state);
       }
     });
-    
 
     // Toggle password visibility
     function togglePasswordVisibility(id) {
@@ -380,13 +330,12 @@
       f.type = f.type === 'password' ? 'text' : 'password';
     }
 
-    // Initialize 
+    // Initialize
     showStep(1);
   </script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-  
-    <script src="firebase.js"></script>
+  <script src="firebase.js"></script>
   <script type="module" src="registration-auth.js"></script>
 </body>
 </html>

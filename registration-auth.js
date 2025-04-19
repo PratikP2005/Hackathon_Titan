@@ -1,19 +1,23 @@
 "use strict";
 
-import { 
+import {
   auth,
   db,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   updateProfile,
   doc,
-  setDoc
+  setDoc,
+  onAuthStateChanged
 } from './firebase.js';
 
-// Step management
-function showStep(n) {
+// In registration-auth.js
+export function showStep(n) {
   [1, 2, 3].forEach(i => {
-    document.getElementById(`step${i}`).classList.toggle('hidden', i !== n);
+    const stepElement = document.getElementById(`step${i}`);
+    if (stepElement) {
+      stepElement.classList.toggle('hidden', i !== n);
+    }
     const prog = document.getElementById(`p${i}`);
     if (prog) {
       prog.classList.toggle('active', i === n);
@@ -22,6 +26,8 @@ function showStep(n) {
   });
 }
 
+// Make showStep globally available
+window.showStep = showStep;
 // Form validation
 function validateForm() {
   document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
@@ -42,7 +48,6 @@ function validateForm() {
 
   let valid = true;
 
-  // Validation checks
   if (!vals.firstName) {
     document.getElementById('firstName-error').textContent = 'Required';
     valid = false;
@@ -91,90 +96,137 @@ function validateForm() {
   return valid ? vals : false;
 }
 
-// Registration handler
-// ... (existing imports)
+// Resend verification email with cooldown
+let lastResendTime = 0;
+const COOLDOWN_SECONDS = 60;
 
-document.getElementById("form-step1").addEventListener("submit", async (e) => {
-  e.preventDefault();
+async function resendVerificationEmail(user, email) {
+  const now = Date.now();
+  const resendButton = document.getElementById('resend-email-btn');
+  const feedbackElement = document.getElementById('resend-feedback');
 
-  const vals = validateForm();
-  if (!vals) return;
+  if (now - lastResendTime < COOLDOWN_SECONDS * 1000) {
+    feedbackElement.textContent = `Please wait ${COOLDOWN_SECONDS - Math.floor((now - lastResendTime) / 1000)} seconds before resending.`;
+    feedbackElement.className = 'error-message';
+    return;
+  }
 
   try {
-    // Create user
-    const userCredential = await createUserWithEmailAndPassword(auth, vals.email, vals.password);
-    const user = userCredential.user;
-
-    // Update profile
-    await updateProfile(user, {
-      displayName: `${vals.firstName} ${vals.lastName}`
-    });
-
-    // Send verification email
+    resendButton.disabled = true;
+    resendButton.innerHTML = 'Sending... <span class="spinner"></span>';
     await sendEmailVerification(user);
-
-    // Save user data to Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      firstName: vals.firstName,
-      lastName: vals.lastName,
-      email: vals.email,
-      phone: vals.phone,
-      state: vals.state,
-      district: vals.district,
-      village: vals.village,
-      role: vals.role,
-      isEmailVerified: false, // Mark as unverified until email is confirmed
-      createdAt: new Date()
-    });
-
-
-    // Show verification message
-    showStep(2);
-    document.getElementById("step2").innerHTML = `
-      <div style="text-align: center;">
-        <h2>Verify Your Email</h2>
-        <p>We've sent a verification email to <strong>${vals.email}</strong>.</p>
-        <p>Please check your inbox and click the verification link to complete registration.</p>
-        <button onclick="window.location.href='admin_login.html'" class="btn">Go to Login</button>
-      </div>
-    `;
-    window.location.href = "admin_login.html";
-    
+    lastResendTime = now;
+    feedbackElement.textContent = 'Verification email resent successfully!';
+    feedbackElement.className = 'success-message';
   } catch (error) {
-    console.error("Registration error:", error);
-    if (error.code === 'auth/email-already-in-use') {
-      document.getElementById("email-error").textContent = "Email already in use";
+    console.error("Resend email error:", error);
+    feedbackElement.textContent = `Error: ${error.message}`;
+    feedbackElement.className = 'error-message';
+  } finally {
+    resendButton.disabled = false;
+    resendButton.innerHTML = 'Resend Email';
+  }
+}
+
+// Check email verification status
+async function checkEmailVerification(user, vals) {
+  const checkButton = document.getElementById('check-verification-btn');
+  checkButton.disabled = true;
+  checkButton.innerHTML = 'Checking... <span class="spinner"></span>';
+
+  try {
+    await user.reload(); // Refresh user data
+    if (user.emailVerified) {
+      // Update Firestore to mark email as verified
+      await setDoc(doc(db, "users", user.uid), { isEmailVerified: true }, { merge: true });
+      // Set user name for Step 3
+      document.getElementById("userNameFinal").textContent = `${vals.firstName} ${vals.lastName}`;
+      showStep(3);
     } else {
-      alert(`Registration error: ${error.message}`);
+      document.getElementById('resend-feedback').textContent = 'Email not yet verified. Please check your inbox or resend the verification email.';
+      document.getElementById('resend-feedback').className = 'error-message';
     }
+  } catch (error) {
+    console.error("Verification check error:", error);
+    document.getElementById('resend-feedback').textContent = `Error: ${error.message}`;
+    document.getElementById('resend-feedback').className = 'error-message';
+  } finally {
+    checkButton.disabled = false;
+    checkButton.innerHTML = 'Check Verification';
   }
-});
-// Initialize districts dropdown
-document.getElementById("state").addEventListener("change", function() {
-  const map = {
-    rajasthan: ['Ajmer','Alwar','Bikaner','Jaipur','Jodhpur','Udaipur'],
-    bihar: ['Patna','Gaya','Bhagalpur','Muzaffarpur','Purnia','Darbhanga','Sasaram'],
-    up: ['Lucknow','Kanpur','Agra','Varanasi','Meerut','Allahabad','Bareilly'],
-    mp: ['Bhopal','Indore','Jabalpur','Gwalior','Ujjain','Sagar','Dewas'],
-    jharkhand: ['Ranchi','Jamshedpur','Dhanbad','Bokaro','Hazaribagh'],
-    odisha: ['Bhubaneswar','Cuttack','Rourkela','Puri','Sambalpur'],
-    wb: ['Kolkata','Howrah','Darjeeling','Siliguri','Asansol','Durgapur'],
-    mh: ['Nagpur','Aurangabad','Satara','Kolhapur','Thane','Palghar','Raigad']
-  };
+}
 
-  const state = this.value;
-  const sel = document.getElementById("district");
-  sel.innerHTML = '<option value="">Select your district</option>';
+// Registration handler
+const form = document.getElementById("form-step1");
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  if (state && map[state]) {
-    map[state].forEach(district => {
-      const option = document.createElement('option');
-      option.value = district.toLowerCase();
-      option.textContent = district;
-      sel.appendChild(option);
-    });
-  }
-});
+    const vals = validateForm();
+    if (!vals) return;
+
+    const continueButton = form.querySelector('.btn');
+    continueButton.disabled = true;
+    continueButton.innerHTML = 'Processing... <span class="spinner"></span>';
+
+    try {
+      // Create user
+      const userCredential = await createUserWithEmailAndPassword(auth, vals.email, vals.password);
+      const user = userCredential.user;
+
+      // Update profile
+      await updateProfile(user, {
+        displayName: `${vals.firstName} ${vals.lastName}`
+      });
+
+      // Send verification email
+      await sendEmailVerification(user);
+
+      // Save user data to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        firstName: vals.firstName,
+        lastName: vals.lastName,
+        email: vals.email,
+        phone: vals.phone,
+        state: vals.state,
+        district: vals.district,
+        village: vals.village,
+        role: vals.role,
+        isEmailVerified: false,
+        createdAt: new Date()
+      });
+
+      // Show verification message
+      showStep(2);
+      document.getElementById("step2").innerHTML = `
+        <div style="text-align: center;">
+          <h2>Verify Your Email</h2>
+          <p>We've sent a verification email to <strong>${vals.email}</strong>.</p>
+          <p>Please check your inbox and click the verification link to complete registration.</p>
+          <button id="check-verification-btn" class="btn">Check Verification</button>
+          <button id="resend-email-btn" class="btn" style="background-color: var(--secondary);">Resend Email</button>
+          <div id="resend-feedback" class=""></div>
+          <button onclick="window.location.href='admin_login.html'" class="btn" style="background-color: #6c757d;">Go to Login</button>
+        </div>
+      `;
+
+      // Add event listeners for resend and check buttons
+      document.getElementById('resend-email-btn').addEventListener('click', () => resendVerificationEmail(user, vals.email));
+      document.getElementById('check-verification-btn').addEventListener('click', () => checkEmailVerification(user, vals));
+
+    } catch (error) {
+      console.error("Registration error:", error);
+      if (error.code === 'auth/email-already-in-use') {
+        document.getElementById("email-error").textContent = "Email already in use";
+      } else {
+        alert(`Registration error: ${error.message}`);
+      }
+    } finally {
+      continueButton.disabled = false;
+      continueButton.innerHTML = 'Continue';
+    }
+  });
+}
 
 // Initialize
 showStep(1);
