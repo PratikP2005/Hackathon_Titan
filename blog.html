@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmpowerHer Blog - Inspiring Stories & Resources</title>
+    <style>
+        /* Reuse all existing styles from right.html */
+        :root {
+            --primary: #ff69b4;
+            --secondary: #db3eb1;
+            --accent: #ffb6c1;
+            --dark: #333;
+            --light: #fff;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+        
+        /* Blog-specific styles */
+        .blog-header {
+            padding: 10rem 5% 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,105,180,0.1) 0%, rgba(255,182,193,0.05) 100%);
+        }
+        
+        .blog-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .blog-header p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .blog-container {
+            padding: 3rem 5% 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.15);
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--accent);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .blog-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+        
+        .blog-excerpt {
+            color: #666;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .page-link {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-link:hover, .page-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .newsletter {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.1);
+        }
+        
+        .newsletter h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--accent);
+            border-radius: 30px 0 0 30px;
+            outline: none;
+        }
+        
+        .newsletter-btn {
+            padding: 0 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .blog-header {
+                padding: 8rem 5% 2rem;
+            }
+            
+            .blog-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 30px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .newsletter-btn {
+                border-radius: 30px;
+                padding: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin: 1rem 0;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .blog-header {
+                padding-top: 7rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Empower<span>Her</span></div>
+        <div class="nav-links">
+            <a href="right.html">Home</a>
+        </div>
+    </nav>
+
+    <header class="blog-header">
+        <h1>EmpowerHer Blog</h1>
+        <p>Discover inspiring stories, educational resources, and community updates to empower rural girls worldwide.</p>
+        <a href="#featured" class="btn btn-primary">Read Featured Stories</a>
+    </header>
+
+    <div class="blog-container">
+        <section id="featured">
+            <h2 class="section-title">Featured Posts</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <img src="images/aisha-patel.jpg" alt="Success Story" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Success Story</span>
+                        <h3 class="blog-title">From Village to Tech Entrepreneur: Aisha's Journey</h3>
+                        <p class="blog-excerpt">How one girl from rural Kenya transformed her life through our digital skills program and started her own business.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">May 15, 2024</span>
+                            <span class="blog-author">
+                                <img src="images/aishaprofile.jpg" alt="Author" class="author-avatar">
+                                Aisha Mulani
+                            </span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Education" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Education</span>
+                        <h3 class="blog-title">5 Essential Resources for Rural Girls Pursuing STEM</h3>
+                        <p class="blog-excerpt">Discover free online tools and programs that can help bridge the educational gap for girls in remote areas.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">April 28, 2024</span>
+                            <span class="blog-author">
+                                <img src="images/priyaprofile.jpg" alt="Author" class="author-avatar">
+                                Priya Patel
+                            </span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Community" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Community</span>
+                        <h3 class="blog-title">How Our Mentorship Program Changed 100 Lives in 2024</h3>
+                        <p class="blog-excerpt">A look at the impact of our peer-to-peer mentorship initiative across rural communities in three countries.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">March 10, 2023</span>
+                            <span class="blog-author">
+                                <img src="images/sunitaprofile.jpg" alt="Author" class="author-avatar">
+                                Sunuta Thakur
+                            </span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="section-title">Recent Articles</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Health" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Health & Wellness</span>
+                        <h3 class="blog-title">Breaking Taboos: Menstrual Health Education in Rural Areas</h3>
+                        <p class="blog-excerpt">How our health initiative is helping girls stay in school by providing education and sanitary products.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">February 22, 2023</span>
+                            <span class="blog-author">
+                                <img src="https://randomuser.me/api/portraits/women/51.jpg" alt="Author" class="author-avatar">
+                                Arti Nanda
+                            </span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Skills" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Skill Development</span>
+                        <h3 class="blog-title">Vocational Training That's Changing Lives</h3>
+                        <p class="blog-excerpt">Meet the girls who are learning marketable skills through our mobile training units in remote villages.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">January 15, 2023</span>
+                            <span class="blog-author">
+                                <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Author" class="author-avatar">
+                                Fatima Mulla
+                            </span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Scholarships" class="blog-image">
+                    <div class="blog-content">
+                        <span class="blog-category">Opportunities</span>
+                        <h3 class="blog-title">2024 Scholarship Opportunities for Rural Girls</h3>
+                        <p class="blog-excerpt">A comprehensive guide to scholarships and financial aid specifically available for girls from rural communities.</p>
+                        <div class="blog-meta">
+                            <span class="blog-date">December 5, 2023</span>
+                            <span class="blog-author">
+                                <img src="https://randomuser.me/api/portraits/women/29.jpg" alt="Author" class="author-avatar">
+                                Saraswati Rathod
+                            </span>
+                        </div>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+            </div>
+            
+        </section>
+        
+    </div>
+
+</body>
+</html>
