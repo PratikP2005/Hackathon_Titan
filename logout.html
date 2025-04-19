@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logout | Rural Girls Digital Empowerment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #ffe6f0;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .logout-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 400px;
+    }
+
+    .logout-container h1 {
+      font-size: 24px;
+      color: #ff4da6;
+      margin-bottom: 20px;
+    }
+
+    .logout-container p {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .logout-btn {
+      background-color: #ff4da6;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .logout-btn:hover {
+      background-color: #ff66b2;
+    }
+
+    .cancel-btn {
+      background-color: #aaa;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+
+    .cancel-btn:hover {
+      background-color: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logout-container">
+    <h1>Are you sure you want to log out?</h1>
+    <p>If you want to continue your work, you can cancel the logout process.</p>
+    <a href="admin_login.html" class="logout-btn">Log Out</a>
+    <a href="dashboard.html" class="cancel-btn">Cancel</a>
+  </div>
+
+</body>
+</html>

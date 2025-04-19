@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Learning | Rural Girls Digital Empowerment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Your existing styles stay here unchanged (shortened for brevity) */
+
+    body {
+      background-color: #ffe6f0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #ff4da6;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .profile-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Sidebar Navigation */
+aside {
+  width: 220px;
+  background-color: #ff66b2;
+  color: white;
+  height: 100vh;
+  padding: 30px 20px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+aside h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+nav a.nav-link {
+  display: block;
+  padding: 8px 0;
+  margin: 10px 0;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: left;
+}
+
+
+    main {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff0f5;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .filter-bar input, .filter-bar select {
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .course-card {
+      background-color: #ffe6f0;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .course-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .course-content {
+      padding: 15px;
+    }
+
+    .course-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .course-status {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .course-btn {
+      background-color: #ff66b2;
+      color: white;
+      padding: 8px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    .course-btn:hover {
+      background-color: #ff4da6;
+    }
+
+    footer {
+      background-color: #ff4da6;
+      color: white;
+      padding: 15px 30px;
+      text-align: center;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      aside {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Rural Girls Empower</h1>
+    <div class="profile-icons">
+      <span>🛒</span>
+      <a href="profile.html">
+        <span>👤</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside>
+      <h2>Learn</h2>
+      <nav>
+        <a href="dashboard.html" class="nav-link"> Dashboard</a>
+        <a href="logout.html" class="nav-link"> Logout</a>
+      </nav>
+    </aside>    
+
+    <main>
+      <h2 class="my-learning-title">My Learning Progress</h2>
+
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search course...">
+        <select id="statusFilter">
+          <option value="all">All Statuses</option>
+          <option value="Completed">Completed</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Not Started">Not Started</option>
+        </select>
+      </div>
+
+      <div class="course-grid" id="courseGrid">
+        <!-- JavaScript will populate this -->
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    &copy; 2025 Rural Girls Digital Empowerment. All rights reserved.
+  </footer>
+
+  <script>
+    const courses = [
+      {
+        title: "Digital Literacy for Rural Women",
+        status: "Completed",
+        image: "https://via.placeholder.com/300x180"
+      },
+      {
+        title: "Women Entrepreneurs in Rural India",
+        status: "In Progress",
+        image: "https://via.placeholder.com/300x180"
+      },
+      {
+        title: "Empowering Women in Rural Areas",
+        status: "Completed",
+        image: "https://via.placeholder.com/300x180"
+      },
+      {
+        title: "Digital Skills for Rural Women",
+        status: "Not Started",
+        image: "https://via.placeholder.com/300x180"
+      }
+    ];
+
+    const courseGrid = document.getElementById("courseGrid");
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+
+    function displayCourses(filteredCourses) {
+      courseGrid.innerHTML = "";
+      if (filteredCourses.length === 0) {
+        courseGrid.innerHTML = "<p>No courses found.</p>";
+        return;
+      }
+
+      filteredCourses.forEach(course => {
+        const courseCard = document.createElement("div");
+        courseCard.className = "course-card";
+        courseCard.innerHTML = `
+          <img src="${course.image}" class="course-img" alt="Course Image">
+          <div class="course-content">
+            <div class="course-title">${course.title}</div>
+            <div class="course-status">Status: ${course.status}</div>
+            <a href="#" class="course-btn" onclick="alert('Opening course: ${course.title}')">Go to Course</a>
+          </div>
+        `;
+        courseGrid.appendChild(courseCard);
+      });
+    }
+
+    function filterCourses() {
+      const keyword = searchInput.value.toLowerCase();
+      const status = statusFilter.value;
+
+      const filtered = courses.filter(course =>
+        course.title.toLowerCase().includes(keyword) &&
+        (status === "all" || course.status === status)
+      );
+
+      displayCourses(filtered);
+    }
+
+    searchInput.addEventListener("input", filterCourses);
+    statusFilter.addEventListener("change", filterCourses);
+
+    // Initial load
+    displayCourses(courses);
+  </script>
+
+</body>
+</html>
