@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EmpowerHer - Video Courses</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script>
+    // Function to remove a course card
+    function removeCard(button) {
+      const card = button.closest('.course-card');
+      card.remove();
+    }
+  </script>
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-pink-100 py-4 shadow">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="text-2xl font-bold text-pink-600">Empower<span class="text-pink-800">Her</span></div>
+      <h1 class="text-xl font-semibold">Your Video Courses</h1>
+    </div>
+  </header>
+  <div class="container mx-auto px-4 mt-4">
+    <a href="dashboard.html">
+      <button class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded shadow">
+        ⬅ Dashboard
+      </button>
+    </a>
+  </div>
+  
+
+  <!-- Courses Section -->
+  <section class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold text-pink-700 mb-6">Courses for Rural Women</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Course Card -->
+      <div class="course-card bg-white border border-pink-200 rounded-lg shadow p-4 relative">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/AIhJrF5viJY" title="Small Business Basics" frameborder="0" allowfullscreen></iframe>
+        <h3 class="text-lg font-semibold mt-3 text-pink-800">Small Business Skills</h3>
+        <p class="text-sm text-gray-600">Learn how to start and grow your own local business.</p>
+        <span class="text-pink-600 font-semibold text-sm mt-2 inline-block">Free</span>
+        <div class="flex justify-end mt-4">
+            <button onclick="removeCard(this)" class="text-xs bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded">
+              Remove
+            </button>
+        </div>
+          
+      </div>
+
+      <div class="course-card bg-white border border-pink-200 rounded-lg shadow p-4 relative">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/RtU_mdL2vBM" title="Digital Literacy" frameborder="0" allowfullscreen></iframe>
+        <h3 class="text-lg font-semibold mt-3 text-pink-800">Digital Literacy</h3>
+        <p class="text-sm text-gray-600">Use smartphones, internet and apps confidently.</p>
+        <span class="text-pink-600 font-semibold text-sm mt-2 inline-block">Free</span>
+        <div class="flex justify-end mt-4">
+            <button onclick="removeCard(this)" class="text-xs bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded">
+              Remove
+            </button>
+          </div>
+          
+      </div>
+
+      <div class="course-card bg-white border border-pink-200 rounded-lg shadow p-4 relative">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/yvG5kg7h3tI" title="Health & Hygiene" frameborder="0" allowfullscreen></iframe>
+        <h3 class="text-lg font-semibold mt-3 text-pink-800">Health & Hygiene</h3>
+        <p class="text-sm text-gray-600">Awareness on menstrual health, nutrition and personal hygiene.</p>
+        <span class="text-pink-600 font-semibold text-sm mt-2 inline-block">Free</span>
+        <div class="flex justify-end mt-4">
+            <button onclick="removeCard(this)" class="text-xs bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded">
+              Remove
+            </button>
+          </div>
+          
+      </div>
+
+      <!-- Add more video cards here in the same format -->
+
+    </div>
+  </section>
+
+</body>
+</html>
