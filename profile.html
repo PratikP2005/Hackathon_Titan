@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile | Rural Girls Digital Empowerment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  
+    header {
+      background: linear-gradient(135deg, #ff4da6, #ff66b2);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+  
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+    }
+  
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  
+    .profile-header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    .profile-header div {
+      color: white;
+    }
+  
+    .profile-header h2 {
+      font-size: 22px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+  
+    .profile-header p {
+      font-size: 14px;
+      font-weight: 300;
+    }
+  
+    .logout-button {
+      background-color: white;
+      color: #ff4da6;
+      border: 2px solid #ff4da6;
+      padding: 8px 15px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+  
+    .logout-button:hover {
+      background-color: #ff4da6;
+      color: white;
+    }
+  
+    .container {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      padding: 0 20px;
+      flex-wrap: wrap;
+    }
+  
+    .profile-card {
+      background-color: white;
+      width: 100%;
+      max-width: 900px;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+  
+    .profile-card:hover {
+      transform: translateY(-5px);
+    }
+  
+    .profile-card h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+  
+    .course-list {
+      margin-top: 20px;
+    }
+  
+    .course-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s;
+      flex-direction: column;
+    }
+  
+    .course-item:hover {
+      background-color: #ffe6f0;
+    }
+  
+    .course-item h4 {
+      font-size: 18px;
+      color: #333;
+      font-weight: 600;
+    }
+  
+    .course-item p {
+      font-size: 14px;
+      color: #777;
+    }
+  
+    .progress-bar {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 20px;
+      height: 10px;
+      margin-top: 10px;
+      position: relative;
+    }
+  
+    .progress-bar div {
+      background-color: #ff66b2;
+      height: 100%;
+      border-radius: 20px;
+      transition: width 1s ease-in-out;
+    }
+  
+    footer {
+      margin-top: auto;
+      text-align: center;
+      color: #aa7b99;
+      font-size: 13px;
+      padding: 20px 0;
+    }
+  
+    .edit-button {
+      background-color: #ff66b2;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 16px;
+      display: inline-block;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+  
+    .edit-button:hover {
+      background-color: #ff4da6;
+    }
+  
+    /* 📱 Mobile & Tablet Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+  
+      .profile-header {
+        flex-direction: column;
+        align-items: center;
+      }
+  
+      .profile-header img {
+        width: 70px;
+        height: 70px;
+      }
+  
+      .container {
+        padding: 0 10px;
+      }
+  
+      .profile-card {
+        padding: 20px;
+      }
+  
+      .profile-card h3 {
+        font-size: 20px;
+      }
+  
+      .course-item h4 {
+        font-size: 16px;
+      }
+  
+      .course-item p {
+        font-size: 13px;
+      }
+  
+      .logout-button {
+        font-size: 13px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+  
+</head>
+<body>
+  <header>
+    <div class="profile-header">
+      <img src="images/logo.png" alt="Profile Icon">
+      <div>
+        <h2>User Name</h2>
+        <p>Empowering Women Through Education</p>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <h1>Profile</h1>
+      <a href="logout.html" class="logout-button">Logout</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="profile-card">
+      <h3>Your Learning Progress</h3>
+
+      <div class="course-list">
+        <div class="course-item">
+          <div>
+            <h4>Digital Literacy for Rural Women</h4>
+            <p>Learn essential digital skills for rural women.</p>
+          </div>
+          <div class="progress-bar">
+            <div style="width: 60%;"></div>
+          </div>
+        </div>
+
+        <div class="course-item">
+          <div>
+            <h4>Women Entrepreneurship</h4>
+            <p>Develop entrepreneurial skills for rural women.</p>
+          </div>
+          <div class="progress-bar">
+            <div style="width: 80%;"></div>
+          </div>
+        </div>
+
+        <div class="course-item">
+          <div>
+            <h4>Empowering Rural Communities</h4>
+            <p>Community empowerment and development through digital tools.</p>
+          </div>
+          <div class="progress-bar">
+            <div style="width: 40%;"></div>
+          </div>
+        </div>
+
+        <div class="course-item">
+          <div>
+            <h4>Basic Web Development for Rural Women</h4>
+            <p>Learn the basics of web development tailored for rural women.</p>
+          </div>
+          <div class="progress-bar">
+            <div style="width: 30%;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Rural Girls Digital Empowerment. All rights reserved.
+  </footer>
+
+  <script>
+    // Example for dynamically updating progress bar (optional)
+    const courseProgress = [
+      { course: "Digital Literacy for Rural Women", progress: 0 },
+      { course: "Women Entrepreneurship", progress: 0 },
+      { course: "Empowering Rural Communities", progress: 0 },
+      { course: "Basic Web Development for Rural Women", progress: 0 }
+    ];
+
+    const progressBars = document.querySelectorAll('.progress-bar div');
+    progressBars.forEach((bar, index) => {
+      bar.style.width = `${courseProgress[index].progress}%`;
+    });
+  </script>
+</body>
+</html>
