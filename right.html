@@ -310,6 +310,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Add this at the top of right.html's <body> -->
+        <script type="module">
+            import { auth, onAuthStateChanged } from './firebase.js';
+            
+            onAuthStateChanged(auth, (user) => {
+              if (!user) {
+                // No user signed in
+                window.location.href = "admin_login.html";
+              } else if (!user.emailVerified) {
+                // User not verified
+                alert("Please verify your email first");
+                window.location.href = "admin_login.html";
+              }
+              // Verified user can stay
+            });
+          </script>
     <nav class="navbar">
         <div class="logo">Empower<span>Her</span></div>
         <div class="nav-links">
@@ -318,8 +334,11 @@
             <a href="about.html">About</a>
         </div>
         <div class="auth-buttons">
-            <a href="admin_login.html" class="btn btn-outline">Login</a>
-            <a href="registration.html" class="btn btn-primary">Register</a>
+            <div id="auth-state">
+                <!-- Default state (logged out) -->
+                <a href="admin_login.html" class="btn btn-outline">Login</a>
+                <a href="registration.html" class="btn btn-primary">Register</a>
+            </div>
         </div>
     </nav>
 
@@ -368,5 +387,26 @@
     <footer>
         © 2025 EmpowerHer. All rights reserved. | Empowering rural girls through education and opportunity
     </footer>
+    <!-- Add this script at the end of body -->
+<script type="module">
+    import { auth, onAuthStateChanged } from './firebase.js';
+
+    onAuthStateChanged(auth, (user) => {
+        const authState = document.getElementById('auth-state');
+        
+        if (user) {
+            authState.innerHTML = `
+                <a href="profile.html" class="btn btn-primary">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            `;
+        } else {
+            authState.innerHTML = `
+                <a href="admin_login.html" class="btn btn-outline">Login</a>
+                <a href="registration.html" class="btn btn-primary">Register</a>
+            `;
+        }
+    });
+</script>
 </body>
 </html>

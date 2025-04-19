@@ -12,20 +12,31 @@
     <div class="left-section">
       <div class="login-card">
         <h1>Login</h1>
-        <h2>Admin Dashboard</h2>
+        <p>Welcome back! Please login to your account.</p>
         <form onsubmit="return validateForm()">
           <input type="email" id="email" placeholder="E-mail" required />
-          <span id="email-error" class="error-message"></span>
-        
+          <span id="email-error" class="error-message" style="color: red;"></span><br>
+
           <input type="password" id="password" placeholder="Password" required />
-          <span id="password-error" class="error-message"></span>
-        
+          <span id="password-error" class="error-message" style="color: red;"></span><br>
+
+          <label for="role">Select Role:</label>
+          <select id="role" required>
+            <option value="">--Select Role--</option>
+            <option value="admin">Admin</option>
+            <option value="mentor">Mentor</option>
+            <option value="user">User</option>
+          </select>
+          <span id="role-error" class="error-message" style="color: red;"></span><br>
+
           <a href="#" class="forgot-password">Forget Password?</a>
+
           <div class="g-recaptcha" data-sitekey="6LeYKh0rAAAAAGFqNdRYaQYoRZtvRlXroI6VBKyL"></div>
-          <span id="recaptcha-error" class="error-message"></span>
+          <span id="recaptcha-error" class="error-message" style="color: red;"></span>
+
           <button type="submit" class="login-button">Login</button>
         </form>
-        
+
         <p>Not a Member? <a href="registration.html" class="sign-up">Register</a></p>
       </div>
     </div>
@@ -36,10 +47,10 @@
     </div>
   </div>
 
-  <!-- External JS file -->
+  <!-- Google reCAPTCHA -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  <script type="module" src="firebase-init.js"></script>
+  <!-- Firebase Auth logic -->
   <script type="module" src="admin_login.js"></script>
 </body>
 </html>
