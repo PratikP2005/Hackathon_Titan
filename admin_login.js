@@ -59,7 +59,7 @@ window.validateForm = function () {
     .then((userCredential) => {
       const user = userCredential.user;
       if (user.emailVerified) {
-        window.location.href = "right.html";
+        window.location.href = "index.html";
       } else {
         alert("Please verify your email first. Check your inbox for the verification link.");
         auth.signOut(); // Optional: Sign out unverified users

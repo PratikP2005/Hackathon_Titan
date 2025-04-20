@@ -169,7 +169,7 @@ if (form) {
     continueButton.disabled = true;
     continueButton.innerHTML = 'Compleated <span class="spinner"></span>';
     alert("Validation email sent to your email address. Please check your inbox.");
-    window.location.href = 'right.html';
+    window.location.href = 'index.html';
 
     try {
       // Create user
