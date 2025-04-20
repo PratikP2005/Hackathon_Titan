@@ -26,6 +26,12 @@
             color: var(--dark);
             min-height: 100vh;
         }
+        #google_translate_element select {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
         
         .navbar {
             display: flex;
@@ -335,14 +341,20 @@
             <a href="blog.html">Blog</a>
             
         </div>
-        <div class="auth-buttons">
-            <div id="auth-state">
-                <!-- Default state (logged out) -->
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <!-- Language switcher with globe icon -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 18px;">🌍</span>
+                <div id="google_translate_element"></div>
+            </div>
+            <!-- Auth buttons -->
+            <div id="auth-state" class="auth-buttons">
                 <a href="admin_login.html" class="btn btn-outline">Login</a>
                 <a href="registration.html" class="btn btn-primary">Register</a>
             </div>
         </div>
     </nav>
+    
 
     <section class="hero">
         <div class="hero-content">
@@ -409,5 +421,19 @@
         }
     });
 </script>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en', // Original language of your website
+      includedLanguages: 'en,hi,mr,sa,kn,te', // Customize as needed
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
