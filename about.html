@@ -3,13 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us</title>
-  <link rel="stylesheet" href="about.css" />
+  <title>About Us - EmpowerHer</title>
+  <link rel="stylesheet" href="css/about.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="header">
-    <div class="logo">Empower<span>Her</span></div>
-    <h1>About Us</h1>
+  <nav class="navbar">
+    <a href="#" class="logo">Empower<span>Her</span></a>
+    <div class="nav-links">
+      <a href="right.html">Home</a>
+      <a href="userdashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="auth-buttons">
+      <div id="auth-state">
+        <a href="admin_login.html" class="btn btn-outline">Login</a>
+        <a href="registration.html" class="btn btn-primary">Register</a>
+      </div>
+    </div>
+  </nav>
+  <div class="about-hero">
+    <h1>About Our Mission</h1>
+    <p class="hero-sub">Empowering Rural Girls Through Education & Opportunity</p>
   </div>
 
   <div class="about-wrapper">
@@ -19,36 +35,70 @@
 
     <div class="about-container">
       <div class="about-box">
-        <p>
-          We are here to help rural girls learn, grow, and succeed in today’s 
-          digital world. Our platform provides easy-to-understand learning in 
-          local languages, skill training, mentorship, and tools to start small 
-          businesses. We are committed to empowering these girls with the knowledge 
-          and resources needed to shape their futures, build confidence, and 
-          contribute to their communities.
-          
-        </p>
-          <br>
-        <p>
-          -Access easy-to-understand lessons, courses, and resources tailored to local languages.<br>
-          -Gain practical skills that can open doors to new opportunities.<br>
-          -Connect with experienced mentors for guidance, advice, and career support.<br>
-          -Learn how to start and grow small businesses with our step-by-step tools and resources.<br>
-        </p>
-        <br>
-        <p>
-          Our mission is to empower rural girls with the knowledge, skills, and 
-          confidence to thrive in the digital age.
-        </p>
-        <br>
-        <p>
-          <B>"Start Your Journey Today"</B>
-        </p>
+        <div class="mission-statement">
+          <i class="fas fa-bullseye icon-accent"></i>
+          <h2>Our Purpose</h2>
+          <p>
+            We are here to help rural girls learn, grow, and succeed in today’s 
+            digital world. Our platform provides easy-to-understand learning in 
+            local languages, skill training, mentorship, and tools to start small 
+            businesses.
+          </p>
+        </div>
 
+        <div class="features-grid">
+          <div class="feature-card">
+            <i class="fas fa-book-open"></i>
+            <h3>Localized Learning</h3>
+            <p>Lessons and resources tailored to local languages and contexts</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-hands-helping"></i>
+            <h3>Skill Development</h3>
+            <p>Practical training for real-world opportunities</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Mentorship</h3>
+            <p>Guidance from experienced professionals</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-seedling"></i>
+            <h3>Entrepreneurship</h3>
+            <p>Tools to start and grow small businesses</p>
+          </div>
+        </div>
+
+        <div class="cta-section">
+          <p class="cta-text">Ready to make a difference?</p>
+          <a href="registration.html" class="btn btn-primary">Join Our Community</a>
+        </div>
       </div>
     </div>
   </div>
+
+  <footer>
+    © 2025 EmpowerHer. All rights reserved. | Empowering rural girls through education and opportunity
+  </footer>
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    document.querySelector('.navbar').appendChild(menuToggle);
+    
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close menu on click outside
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('active');
+      }
+    });
+    </script>
 </body>
-
 </html>
-

@@ -349,7 +349,7 @@
             <p>Join our platform dedicated to providing education, skills, and opportunities to girls in rural communities. Together, we can break barriers and build dreams.</p>
             <div class="hero-buttons">
                 <a href="registration.html" class="btn btn-outline">Get Started</a>
-            <a href="" class="btn btn-primary">Learn More</a>
+            <a href="about.html" class="btn btn-primary">Learn More</a>
             </div>
         </div>
         <div class="hero-image">
@@ -389,7 +389,7 @@
         © 2025 EmpowerHer. All rights reserved. | Empowering rural girls through education and opportunity
     </footer>
     <!-- Add this script at the end of body -->
-<script type="module">
+   <script type="module">
     import { auth, onAuthStateChanged } from './firebase.js';
 
     onAuthStateChanged(auth, (user) => {
@@ -398,8 +398,7 @@
         if (user) {
             authState.innerHTML = `
                 <a href="profile.html" class="btn btn-primary">
-                    <i class="fas fa-user"></i> Profile
-                </a>
+                    <i class="fas fa-user"></i> Profile</a>
             `;
         } else {
             authState.innerHTML = `
