@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Entrepreneur Dashboard - EmpowerHer</title>
+  <style>
+    /* Combined Styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #f48fb1;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #880e4f;
+    }
+
+    .btn {
+      background-color: #ec407a;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    /* Product Management Section */
+    .product-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      resize: vertical;
+    }
+
+    .product-card {
+      background-color: #ffe4ec;
+      border: 1px solid #f8bbd0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .product-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .remove-btn {
+      background-color: #f06292;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Entrepreneur Content Section */
+    .content-section {
+      background-color: #ffe4ec;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    .highlight-card {
+      background-color: #fff;
+      border-left: 5px solid #ec407a;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .container {
+        padding: 0 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 20px;
+      }
+      
+      .logo {
+        font-size: 20px;
+      }
+      
+      .btn {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+      
+      .product-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .product-card img {
+        width: 100%;
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 20px auto;
+      }
+      
+      .form-group input,
+      .form-group textarea {
+        font-size: 14px;
+      }
+      
+      iframe {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Empower<span style="color:#ad1457;">Her</span></div>
+    <a href="userdashboard.html" class="btn">Go Back</a>
+  </header>
+  <main>
+    <div class="welcome-box">
+      <h2>Hello, Entrepreneur! 👩💼</h2>
+      <p>Welcome to your Entrepreneurship Dashboard. Let's grow your business!</p>
+    </div>
+    </main>
+  <div class="container">
+    <div class="dashboard-grid">
+      <!-- Product Management Column -->
+      <div class="product-section">
+        <h2>Add a New Product</h2>
+        <div class="form-group">
+          <label for="productName">Product Name</label>
+          <input type="text" id="productName" placeholder="e.g. Handmade Basket" />
+        </div>
+        <div class="form-group">
+          <label for="productImage">Image URL</label>
+          <input type="text" id="productImage" placeholder="Paste image link" />
+        </div>
+        <div class="form-group">
+          <label for="productDesc">Description</label>
+          <textarea id="productDesc" rows="3" placeholder="Describe your product"></textarea>
+        </div>
+        <button class="btn" onclick="addProduct()">Add Product</button>
+
+        <h2 style="margin-top: 30px;">Your Products</h2>
+        <div id="productList"></div>
+      </div>
+
+      <!-- Entrepreneur Content Column -->
+      <div class="content-section">
+        <h2>Rural Development & Self-Made Women Entrepreneurs</h2>
+        
+        <div class="highlight-card">
+          <h3>Handmade Crafts by Rural Women</h3>
+          <p>Meet women who turned their talent into business by creating beautiful handmade items.</p>
+          <iframe src="https://www.youtube.com/embed/ajIcP-mfKUo?si=FsUuD8GqkG22TBw7" title="YouTube video player" allowfullscreen></iframe>
+          <h3>Sita’s Bamboo Craft Studio (Bihar)</h3>
+          <p>Started with ₹500 and today supplies eco-friendly baskets to urban eco stores.</p>
+        </div>
+
+        <div class="highlight-card">
+          <h3>Home-Based Food Business</h3>
+          <p>Many women started their own pickles, papad, and snack ventures from their kitchen.</p>
+          <iframe src="https://www.youtube.com/embed/AqF1-B1KHjk?si=_7E7YDFLZTGuhhBu" title="YouTube video player" allowfullscreen></iframe>
+          <h3>Meena’s Masala Kitchen (Rajasthan)</h3>
+          <p>Specializes in homemade masalas and achar, delivered to nearby towns and villages.</p>
+        </div>
+
+        <div class="highlight-card">
+          <h3>Agro-Based Microenterprises</h3>
+          <p>Learn how women used farming knowledge to start seed nurseries and organic farms.</p>
+          <iframe src="https://www.youtube.com/embed/B_N_f37pGCk?si=X0fT5-7N5Vk7gFFv" title="YouTube video player" allowfullscreen></iframe>
+          <h3>Lalita's Mushroom Farm (Madhya Pradesh)</h3>
+          <p>Started training other women in mushroom cultivation and formed a self-help group (SHG).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Original addProduct function preserved
+    function addProduct() {
+      const name = document.getElementById("productName").value;
+      const image = document.getElementById("productImage").value;
+      const desc = document.getElementById("productDesc").value;
+
+      if (!name || !image || !desc) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      const productList = document.getElementById("productList");
+
+      const productCard = document.createElement("div");
+      productCard.className = "product-card";
+      productCard.innerHTML = `
+        <img src="${image}" alt="${name}">
+        <div class="product-info">
+          <strong>${name}</strong>
+          <p style="margin: 5px 0;">${desc}</p>
+        </div>
+        <div class="product-actions">
+          <button class="remove-btn" onclick="this.parentElement.parentElement.remove()">Remove</button>
+        </div>
+      `;
+
+      productList.appendChild(productCard);
+
+      // Clear fields
+      document.getElementById("productName").value = "";
+      document.getElementById("productImage").value = "";
+      document.getElementById("productDesc").value = "";
+    }
+  </script>
+
+</body>
+</html>

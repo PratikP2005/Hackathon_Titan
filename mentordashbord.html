@@ -679,5 +679,15 @@
             this.classList.toggle('active');
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const userRole = localStorage.getItem('pendingRole');
+          if(userRole) {
+            localStorage.removeItem('pendingRole');
+            // You can use the role for further customization
+            console.log('User role:', userRole);
+          }
+        });
+        </script>
 </body>
 </html>
