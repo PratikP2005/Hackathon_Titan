@@ -17,7 +17,7 @@ export function showStep(n) {
     const stepElement = document.getElementById(`step${i}`);
     if (stepElement) {
       stepElement.classList.toggle('hidden', i !== n);
-    }
+    } 
     const prog = document.getElementById(`p${i}`);
     if (prog) {
       prog.classList.toggle('active', i === n);
@@ -169,7 +169,7 @@ if (form) {
     continueButton.disabled = true;
     continueButton.innerHTML = 'Compleated <span class="spinner"></span>';
     alert("Validation email sent to your email address. Please check your inbox.");
-    window.location.href = 'admin_login.html';
+    window.location.href = 'right.html';
 
     try {
       // Create user

@@ -12,13 +12,13 @@
 
   const firebaseConfig = {
     apiKey: "AIzaSyAeAx6GdfQ2-qyXjQPZDvS5CAWEayLqKf8",
-    authDomain: "prabal-b767d.firebaseapp.com",
-    databaseURL: "https://prabal-b767d-default-rtdb.firebaseio.com",
-    projectId: "prabal-b767d",
-    storageBucket: "prabal-b767d.firebasestorage.app",
-    messagingSenderId: "149059599078",
-    appId: "1:149059599078:web:98af4966ee709274ddd927",
-    measurementId: "G-88RKSBNSCX"
+  authDomain: "prabal-b767d.firebaseapp.com",
+  databaseURL: "https://prabal-b767d-default-rtdb.firebaseio.com",
+  projectId: "prabal-b767d",
+  storageBucket: "prabal-b767d.firebasestorage.app",
+  messagingSenderId: "149059599078",
+  appId: "1:149059599078:web:98af4966ee709274ddd927",
+  measurementId: "G-88RKSBNSCX"
   };
 
   const app = initializeApp(firebaseConfig);
