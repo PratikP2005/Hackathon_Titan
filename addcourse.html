@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Empower Her - Add Course</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fbc2eb, #a6c1ee);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .form-container h3 {
+      text-align: center;
+      color: #ec4899;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    .form-container label {
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+      color: #333;
+    }
+
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-container input:focus,
+    .form-container textarea:focus {
+      outline: none;
+      border-color: #ec4899;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 14px;
+      background-color: #ec4899;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-container button:hover {
+      background-color: #db2777;
+    }
+
+    .top-right {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-weight: 600;
+      color: #444;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h3>Add New Course</h3>
+    <form id="courseForm">
+      <label>Course Title</label>
+      <input type="text" name="title" required>
+
+      <label>Course Headings</label>
+      <input type="text" name="headings" required>
+
+      <label>Course Description</label>
+      <textarea name="description" rows="4" required></textarea>
+
+      <label>Course Price (₹)</label>
+      <input type="number" name="price" required>
+
+      <label>Thumbnail URL</label>
+      <input type="text" name="thumbnailUrl" placeholder="https://example.com/image.jpg" required>
+
+      <label>Video URL</label>
+      <input type="text" name="videoUrl" placeholder="https://example.com/video.mp4" required>
+
+      <button type="submit">Add Course</button>
+    </form>
+  </div>
+
+  <div class="top-right">
+    Hi! Richard <span style="margin-left: 10px;">👤</span>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAeAx6GdfQ2-qyXjQPZDvS5CAWEayLqKf8",
+      authDomain: "prabal-b767d.firebaseapp.com",
+      databaseURL: "https://prabal-b767d-default-rtdb.firebaseio.com",
+      projectId: "prabal-b767d",
+      storageBucket: "prabal-b767d.firebasestorage.app",
+      messagingSenderId: "149059599078",
+      appId: "1:149059599078:web:98af4966ee709274ddd927",
+      measurementId: "G-88RKSBNSCX"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    document.getElementById('courseForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const courseData = {
+        title: form.title.value,
+        headings: form.headings.value,
+        description: form.description.value,
+        price: form.price.value,
+        thumbnailUrl: form.thumbnailUrl.value,
+        videoUrl: form.videoUrl.value,
+        createdAt: new Date().toISOString()
+      };
+
+      db.ref('courses').push(courseData)
+        .then(() => {
+          alert("Course added successfully!");
+          form.reset();
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Something went wrong.");
+        });
+    });
+  </script>
+</body>
+</html>
