@@ -647,36 +647,47 @@
     </main>
 
     <script>
-        // Mobile sidebar functionality
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileSidebar = document.getElementById('mobileSidebar');
-        const closeSidebar = document.getElementById('closeSidebar');
-        const overlay = document.getElementById('overlay');
-
-        menuToggle.addEventListener('click', () => {
-            mobileSidebar.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        const searchInput = document.querySelector('.search-bar input');
+        const videoCards = document.querySelectorAll('.video-card');
+    
+        searchInput.addEventListener('input', function () {
+          const query = this.value.toLowerCase();
+          videoCards.forEach(card => {
+            const title = card.querySelector('.video-title').textContent.toLowerCase();
+            card.style.display = title.includes(query) ? 'block' : 'none';
+          });
         });
-
-        closeSidebar.addEventListener('click', () => {
-            mobileSidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
+    
+        // User data initialization
+        const userStats = {
+          enrolled: 3,
+          completed: 1,
+          certificates: 1,
+          hours: 12
+        };
+    
+        document.getElementById("enrolledCount").textContent = userStats.enrolled;
+        document.getElementById("completedCount").textContent = userStats.completed;
+        document.getElementById("certCount").textContent = userStats.certificates;
+        document.getElementById("hoursCount").textContent = userStats.hours;
+    
+        // Animate progress bars on scroll
+        const progressBars = document.querySelectorAll('.progress-fill');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting) {
+              entry.target.style.width = entry.target.dataset.width;
+            }
+          });
         });
-
-        overlay.addEventListener('click', () => {
-            mobileSidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
+    
+        progressBars.forEach(bar => {
+          bar.dataset.width = bar.style.width;
+          bar.style.width = '0';
+          observer.observe(bar);
         });
-
-        // Animate menu toggle
-        menuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-    </script>
-    <script>
+      </script>
+      <script>
         document.addEventListener('DOMContentLoaded', () => {
           const userRole = localStorage.getItem('pendingRole');
           if(userRole) {
