@@ -167,7 +167,9 @@ if (form) {
 
     const continueButton = form.querySelector('.btn');
     continueButton.disabled = true;
-    continueButton.innerHTML = 'Processing... <span class="spinner"></span>';
+    continueButton.innerHTML = 'Compleated <span class="spinner"></span>';
+    alert("Validation email sent to your email address. Please check your inbox.");
+    window.location.href = 'admin_login.html';
 
     try {
       // Create user
@@ -226,7 +228,7 @@ if (form) {
       continueButton.innerHTML = 'Continue';
     }
   });
-}
+} 
 
 // Initialize
 showStep(1);

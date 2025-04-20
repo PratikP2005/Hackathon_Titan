@@ -10,20 +10,19 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="logo">Empower<span>Her</span></div>
+    <a href="#" class="logo">Empower<span>Her</span></a>
     <div class="nav-links">
-        <a href="right.html">Home</a>
-        <a href="userdashboard.html">Dashboard</a>
-        <a href="about.html">About</a>
+      <a href="right.html">Home</a>
+      <a href="userdashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
     </div>
     <div class="auth-buttons">
-        <div id="auth-state">
-            <a href="admin_login.html" class="btn btn-outline">Login</a>
-            <a href="registration.html" class="btn btn-primary">Register</a>
-        </div>
+      <div id="auth-state">
+        <a href="admin_login.html" class="btn btn-outline">Login</a>
+        <a href="registration.html" class="btn btn-primary">Register</a>
+      </div>
     </div>
   </nav>
-
   <div class="about-hero">
     <h1>About Our Mission</h1>
     <p class="hero-sub">Empowering Rural Girls Through Education & Opportunity</p>
@@ -81,5 +80,25 @@
   <footer>
     © 2025 EmpowerHer. All rights reserved. | Empowering rural girls through education and opportunity
   </footer>
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    document.querySelector('.navbar').appendChild(menuToggle);
+    
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close menu on click outside
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('active');
+      }
+    });
+    </script>
 </body>
 </html>
